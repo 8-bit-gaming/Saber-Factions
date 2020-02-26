@@ -127,9 +127,10 @@ public class CmdJoin extends FCommand {
         }
 
         faction.deinvite(fplayer);
+        fplayer.setRole(faction.getDefaultRole());
+        FactionsPlugin.instance.logFactionEvent(faction, FLogType.INVITES, fplayer.getName(), CC.Green + "joined", "the faction");
+
         try {
-            context.fPlayer.setRole(faction.getDefaultRole());
-            FactionsPlugin.instance.logFactionEvent(faction, FLogType.INVITES, context.fPlayer.getName(), CC.Green + "joined", "the faction");
             if (Discord.useDiscord && context.fPlayer.discordSetup() && Discord.isInMainGuild(context.fPlayer.discordUser()) && Discord.mainGuild != null) {
                 Member m = Discord.mainGuild.getMember(context.fPlayer.discordUser());
                 if (Conf.factionRoles) {
